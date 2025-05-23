@@ -9,7 +9,7 @@ import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 
 @RegisterRestClient(baseUri = "https://americas.api.riotgames.com/riot/account/v1/accounts")
 @RegisterProvider(RiotApiKeyFilter.class)
-public interface AccountService {
+public interface AccountClient {
 
     @GET
     @Path("/by-riot-id/{gameName}/{tagLine}")
