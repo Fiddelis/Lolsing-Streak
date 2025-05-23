@@ -12,7 +12,7 @@ import java.util.List;
 
 @RegisterRestClient(baseUri = "https://americas.api.riotgames.com/lol/match/v5/matches")
 @RegisterProvider(RiotApiKeyFilter.class)
-public interface MatchService {
+public interface MatchClient {
     @GET
     @Path("/by-puuid/{puuid}/ids")
     List<String> getMatches(@PathParam("puuid") String puuid, @QueryParam("start") int start, @QueryParam("count") int count, @QueryParam("type") String type);

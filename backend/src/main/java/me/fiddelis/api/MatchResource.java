@@ -2,32 +2,80 @@ package me.fiddelis.api;
 
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
-import me.fiddelis.client.MatchService;
+import jakarta.ws.rs.core.Response;
+import me.fiddelis.client.MatchClient;
+import me.fiddelis.model.Match;
+import me.fiddelis.service.MatchService;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
-import org.jboss.resteasy.reactive.RestResponse;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+
 
 @Path("/matches")
 public class MatchResource {
     @Inject
     @RestClient
+    MatchClient matchClient;
+
+    @Inject
     MatchService matchService;
 
     @GET
-    @Path("/by-puuid/{puuid}")
-    public List<String> getMatches(@PathParam("puuid") String puuid,
-                                   @QueryParam("start") @DefaultValue("0") int start,
-                                   @QueryParam("count") @DefaultValue("100") int count,
-                                   @QueryParam("type") @DefaultValue("ranked") String type) {
-        return matchService.getMatches(puuid, start, count, type);
+    public Response getMatch(@QueryParam("matchId") String matchId) {
+        Match match = matchService.getMatchById(matchId);
+        return Response.ok(match).build();
     }
 
     @GET
-    @Path("/{match_id}")
-    public Map<?, ?> getMatch(@PathParam("match_id") String matchId) {
-        return matchService.getMatch(matchId);
+    @Path("/all/id")
+    public Response getAllMatchesId() {
+        List<String> matchIds = matchService.getAllMatchIds();
+        return Response.ok(matchIds).build();
+    }
+
+    @GET
+    @Path("/all/puuid/id")
+    public Response getAllMatchIdByPuuid(@QueryParam("puuid") String puuid) {
+        List<String> matchIds = matchService.getMatchesByParticipantPuuid(puuid);
+        return Response.ok(matchIds).build();
+    }
+
+    @GET
+    @Path("/all/puuid/{puuid}")
+    public Response getAllMatchesByPuuid(@PathParam("puuid") String puuid) {
+        List<String> matchIds = matchService.getMatchesByParticipantPuuid(puuid);
+
+        List<Match> matches = new ArrayList<>();
+        for(String id : matchIds) {
+            Match match = matchService.getMatchById(id);
+            matches.add(match);
+        }
+
+        return Response.ok(matches).build();
+    }
+
+    @POST
+    @Path("/update")
+    public Response updateMatches() {
+        matchService.updateMatches();
+        return Response.noContent().build();
+    }
+
+    @POST
+    public Response saveMatchesByIdManual(List<String> matchesId) {
+        for(String matchId : matchesId) {
+            Match match = matchClient.getMatch(matchId);
+            matchService.save(match);
+        }
+        return Response.noContent().build();
+    }
+
+    @DELETE
+    public Response deleteMatch(List<String> matchId) {
+        for(String id : matchId) {
+            matchService.delete(id);
+        }
+        return Response.noContent().build();
     }
 }
