@@ -1,0 +1,45 @@
+.match-win {
+  background-color: #abc9fb;
+  color: #fff;
+}
+
+.match-loss {
+  background-color: #ce2f4180;
+  color: #fff;
+}
+
+.badge {
+  background-color: #dbb0ffb9;
+  color: #fff;
+}
+
+.background {
+  background-color: #fafafa;
+}
+
+.secondary-background {
+  background-color: #f5f5f5;
+}
+
+.elevate-hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.elevate-hover:hover {
+  transform: translateY(-5px);
+}
+
+.equal-height {
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card {
+  flex: 1 1 300px; /* cresce e ocupa até 300px */
+  min-height: 350px; /* força altura mínima */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
