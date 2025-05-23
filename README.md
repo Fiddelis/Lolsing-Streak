@@ -14,3 +14,5 @@ Fullstack application for querying and displaying data from Riot Games (League o
 
 - **Quarkus** - Backend with REST API, integration with Riot API, Flyway and PostgreSQL.
 - **React** - Modern interface for visualizing player data.
+
+![image](https://github.com/user-attachments/assets/67dc327b-87d0-4154-8cd1-7ed7436b8f30)
