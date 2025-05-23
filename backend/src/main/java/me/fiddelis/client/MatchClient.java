@@ -4,11 +4,11 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.QueryParam;
+import me.fiddelis.model.Match;
 import org.eclipse.microprofile.rest.client.annotation.RegisterProvider;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 
 import java.util.List;
-import java.util.Map;
 
 @RegisterRestClient(baseUri = "https://americas.api.riotgames.com/lol/match/v5/matches")
 @RegisterProvider(RiotApiKeyFilter.class)
@@ -19,6 +19,6 @@ public interface MatchService {
 
     @GET
     @Path("/{match_id}")
-    Map<?, ?> getMatch(@PathParam("match_id") String match_id);
+    Match getMatch(@PathParam("match_id") String match_id);
 
 }
