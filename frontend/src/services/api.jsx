@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:8080";
+const BASE_URL = "https://lolsing-streak.onrender.com";
 
 export const getAccounts = async () => {
   const response = await fetch(`${BASE_URL}/account`);
