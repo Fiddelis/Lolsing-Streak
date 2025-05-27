@@ -16,8 +16,12 @@
 # The ` registry.access.redhat.com/ubi8/ubi-minimal:8.10` base image is based on UBI 9.
 # To use UBI 8, switch to `quay.io/ubi8/ubi-minimal:8.10`.
 ###
-FROM registry.access.redhat.com/ubi8/ubi-minimal:8.10
+FROM registry.access.redhat.com/ubi9/ubi-minimal:9.5
 WORKDIR /work/
+
+RUN microdnf install -y ca-certificates && \
+    update-ca-trust
+
 RUN chown 1001 /work \
     && chmod "g+rwX" /work \
     && chown 1001:root /work
@@ -26,4 +30,4 @@ COPY --chown=1001:root --chmod=0755 target/*-runner /work/application
 EXPOSE 8080
 USER 1001
 
-ENTRYPOINT ["./application", "-Dquarkus.http.host=0.0.0.0"]
+CMD ["./application", "-Dquarkus.http.host=0.0.0.0"]

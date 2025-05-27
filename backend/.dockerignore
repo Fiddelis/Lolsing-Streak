@@ -1,5 +1,7 @@
-*
+.idea/
+.vscode/
+node_modules/
+# Ignora tudo em target, exceto o runner
+target/*
 !target/*-runner
 !target/*-runner.jar
-!target/lib/*
-!target/quarkus-app/*
