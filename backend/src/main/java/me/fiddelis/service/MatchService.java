@@ -49,26 +49,21 @@ public class MatchService {
     }
 
     @Scheduled(every = "10m")
+    @Transactional
     public void updateMatches() {
         List<String> puuids = accountService.getPuuids();
-        int start = 0;
-        int count = 20;
-
         List<String> existingMatchIds = getAllMatchIds();
 
-        for(String puuid : puuids) {
-            List<String> newMatchIds= matchClient.getMatches(puuid, start, count);
+        for (String puuid : puuids) {
+            List<String> newMatchIds = matchClient.getMatches(puuid, 0, 20);
+            List<String> onlyNew = newMatchIds.stream()
+                    .filter(id -> !existingMatchIds.contains(id))
+                    .toList();
 
-            List<String> onlyNew = newMatchIds.stream().filter(id -> !existingMatchIds.contains(id)).toList();
-            for(String newMatchId : onlyNew) {
+            for (String newMatchId : onlyNew) {
                 Match match = matchClient.getMatch(newMatchId);
-                persistOrUpdateMatch(match);
+                matchRepository.upsert(match);
             }
         }
     }
-
-    @Transactional
-    public void persistOrUpdateMatch(Match match) {
-    matchRepository.persistOrUpdate(match);
-}
 }
