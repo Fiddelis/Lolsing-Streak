@@ -48,8 +48,7 @@ public class MatchService {
         matchRepository.deleteById(match);
     }
 
-    @Transactional
-    @Scheduled(every = "30m")
+    @Scheduled(every = "10m")
     public void updateMatches() {
         List<String> puuids = accountService.getPuuids();
         int start = 0;
@@ -63,8 +62,13 @@ public class MatchService {
             List<String> onlyNew = newMatchIds.stream().filter(id -> !existingMatchIds.contains(id)).toList();
             for(String newMatchId : onlyNew) {
                 Match match = matchClient.getMatch(newMatchId);
-                matchRepository.persist(match);
+                persistOrUpdateMatch(match);
             }
         }
     }
+
+    @Transactional
+    public void persistOrUpdateMatch(Match match) {
+    matchRepository.persistOrUpdate(match);
+}
 }
