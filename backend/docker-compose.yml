@@ -1,11 +1,23 @@
+version: '3.8'
+
 services:
-  lolsing-streak:
+  postgres:
+    image: postgres:16.4
+    container_name: postgres
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: lolsing-streak
+    ports:
+      - "5432:5432"
+
+  app:
     build:
       context: .
       dockerfile: src/main/docker/Dockerfile.native
-    image: lolsing-streak:latest
-    container_name: lolsing-streak
+    image: lolsing-streak-native:dev
+    env_file: .env.dev
     ports:
       - "8080:8080"
-    env_file:
-      - .env
+    depends_on:
+      - postgres
