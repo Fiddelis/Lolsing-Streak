@@ -2,10 +2,12 @@ package me.fiddelis.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.quarkus.runtime.annotations.RegisterForReflection;
 import jakarta.persistence.Embeddable;
 import java.util.List;
 
 @Embeddable
+@RegisterForReflection
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Challenges {
 

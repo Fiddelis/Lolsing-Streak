@@ -2,6 +2,7 @@ package me.fiddelis.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.quarkus.runtime.annotations.RegisterForReflection;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.Map;
 
 
 @Entity
+@RegisterForReflection
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Match {
 

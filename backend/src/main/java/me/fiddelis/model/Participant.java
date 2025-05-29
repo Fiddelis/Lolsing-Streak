@@ -3,9 +3,11 @@ package me.fiddelis.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.quarkus.runtime.annotations.RegisterForReflection;
 import jakarta.persistence.*;
 
 @Entity
+@RegisterForReflection
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Participant {
     @Id
@@ -21,30 +23,29 @@ public class Participant {
     public String puuid;
 
     @JsonProperty("championName")
-    private String championName;
+    public String championName;
 
     @JsonProperty("riotIdGameName")
-    private String riotIdGameName;
+    public String riotIdGameName;
 
     @JsonProperty("riotIdTagline")
-    private String riotIdTagline;
+    public String riotIdTagline;
 
     @JsonProperty("role")
-    private String role;
+    public String role;
 
     @JsonProperty("kills")
-    private int kills;
+    public int kills;
 
     @JsonProperty("deaths")
-    private int deaths;
+    public int deaths;
 
     @JsonProperty("assists")
-    private int assists;
+    public int assists;
 
     @JsonProperty("win")
-    private boolean win;
+    public boolean win;
 
     @JsonProperty("challenges")
-    private Challenges challenges;
-    // Getters e Setters
+    public Challenges challenges;
 }

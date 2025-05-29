@@ -54,12 +54,11 @@ public class MatchService {
         List<String> puuids = accountService.getPuuids();
         int start = 0;
         int count = 20;
-        String type = "ranked";
 
         List<String> existingMatchIds = getAllMatchIds();
 
         for(String puuid : puuids) {
-            List<String> newMatchIds= matchClient.getMatches(puuid, start, count, type);
+            List<String> newMatchIds= matchClient.getMatches(puuid, start, count);
 
             List<String> onlyNew = newMatchIds.stream().filter(id -> !existingMatchIds.contains(id)).toList();
             for(String newMatchId : onlyNew) {
