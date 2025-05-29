@@ -4,6 +4,8 @@ import MenuBar from "./components/MenuBar";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
 function App() {
+  import.meta.env.VITE_API_URL;
+
   return (
     <>
       <MenuBar />
