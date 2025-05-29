@@ -15,7 +15,7 @@ import java.util.List;
 public interface MatchClient {
     @GET
     @Path("/by-puuid/{puuid}/ids")
-    List<String> getMatches(@PathParam("puuid") String puuid, @QueryParam("start") int start, @QueryParam("count") int count, @QueryParam("type") String type);
+    List<String> getMatches(@PathParam("puuid") String puuid, @QueryParam("start") int start, @QueryParam("count") int count);
 
     @GET
     @Path("/{match_id}")
